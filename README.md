@@ -38,27 +38,8 @@ npm install github:YaquilunaDev/milo-dsl#v0.1.0
 The install runs a `prepare` step that builds `dist/` via `tsc`. No
 runtime dependencies beyond TypeScript itself.
 
-### Bun users: trust the prepare script
-
-Bun blocks lifecycle scripts by default, so the `prepare` build does not
-run and `dist/` stays empty until you trust the package:
-
-```bash
-bun pm trust milo-dsl
-```
-
-Or, in your consumer `package.json`:
-
-```json
-{
-  "trustedDependencies": ["milo-dsl"]
-}
-```
-
-npm and pnpm run `prepare` automatically, so this step is only needed
-for Bun. See [Bun's trusted dependencies
-docs](https://bun.com/docs/cli/install#trusted-dependencies) for
-background.
+> **Bun users:** one extra step is required after install. See
+> [Bun: trust the prepare script](#bun-trust-the-prepare-script) below.
 
 ## Quickstart
 
@@ -106,6 +87,30 @@ and filenames against an asset registry (exported from the platform),
 validates module / command / variable / page consistency, and emits the
 final JSON. Assets are still uploaded through the platform editor; the
 registry is the exported JSON's `galleries` and `files` sections.
+
+## Bun: trust the prepare script
+
+Bun blocks lifecycle scripts by default, so after
+`bun add github:YaquilunaDev/milo-dsl` the `prepare` build doesn't run
+and `dist/` stays empty. Imports will fail with
+`Cannot find package 'milo-dsl'`. Trust the package once:
+
+```bash
+bun pm trust milo-dsl
+```
+
+Or, in your consumer `package.json`:
+
+```json
+{
+  "trustedDependencies": ["milo-dsl"]
+}
+```
+
+npm and pnpm run `prepare` automatically, so this step is only needed
+for Bun. See [Bun's trusted dependencies
+docs](https://bun.com/docs/cli/install#trusted-dependencies) for
+background.
 
 ## Status
 
