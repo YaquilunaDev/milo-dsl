@@ -1,0 +1,29 @@
+{
+  "galleries": {
+    "12fb05bc-9183-4826-93f3-150a674a228e": {
+      "name": "Remi",
+      "images": [
+        { "id": 4010258, "hash": "1feb9288bbe1e0da6cef62f94323571daf4950bb", "size": 268922, "width": 853, "height": 1280 },
+        { "id": 4010259, "hash": "a2d6023d79b7a4988f48e848d5143925badb2522", "size": 343123, "width": 853, "height": 1280 },
+        { "id": 4010260, "hash": "819b66b907430979f3c4fdab81aee77aeb074360", "size": 372763, "width": 853, "height": 1280 },
+        { "id": 4010261, "hash": "882e226b3b8f1a152bd2d171b945adafaf90f701", "size": 212682, "width": 853, "height": 1280 },
+        { "id": 4010262, "hash": "fb39656e5479dcd1e45f3a2641425f46fea2f6da", "size": 341047, "width": 853, "height": 1280 },
+        { "id": 4010263, "hash": "7c489b46864607b0f4596fbf147d2a781d126684", "size": 210810, "width": 853, "height": 1280 },
+        { "id": 4010264, "hash": "113f72c01d29271e4045a68d30c33d73d46f8e0c", "size": 315064, "width": 853, "height": 1280 },
+        { "id": 4010265, "hash": "2affb51808fabb6ece046cf7690ef58788bf6d86", "size": 266096, "width": 853, "height": 1280 },
+        { "id": 4010266, "hash": "131e51ea87d7195f13df41f6babae33fbe6b2d3c", "size": 252250, "width": 853, "height": 1280 },
+        { "id": 4010267, "hash": "d05bbb1f99bf264b63435010fe08e957de7edd1b", "size": 217755, "width": 853, "height": 1280 },
+        { "id": 4010268, "hash": "69f56087b0040aa534830802c3ae3bbed42569f9", "size": 159970, "width": 853, "height": 1280 },
+        { "id": 4010269, "hash": "bdb5b2ed6338812ec3fd21a8e2780064a0f0bddf", "size": 176200, "width": 853, "height": 1280 }
+      ]
+    }
+  },
+  "files": {
+    "file-example-mp3-700kb.mp3": {
+      "id": 4010358,
+      "hash": "dcaa8815859ce4c1c02c5f3b8bf01c79d0053c1f",
+      "size": 733645,
+      "type": "audio/mpeg"
+    }
+  }
+}
