@@ -72,7 +72,7 @@ function visit(cmd: any, fn: (cmd: any) => void): void {
 
 function extractLetAssignments(src: string): Record<string, unknown> {
   const out: Record<string, unknown> = {};
-  const re = /let\s+([A-Za-z_$][\w$]*)\s*=\s*("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*'|-?\d+(?:\.\d+)?|true|false|null)/g;
+  const re = /(?:let|const|var)\s+([A-Za-z_$][\w$]*)\s*=\s*("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*'|-?\d+(?:\.\d+)?|true|false|null)/g;
   let m: RegExpExecArray | null;
   while ((m = re.exec(src)) !== null) {
     const [, name, valueRaw] = m;
@@ -108,10 +108,10 @@ describe("build: demo reproduction", () => {
     expect(built.editor).toEqual({ recentImages: [] });
   });
 
-  test("init contains canonical `let testYes = \"test\";`", async () => {
+  test("init contains canonical `const testYes = \"test\";`", async () => {
     const assets = await loadAssets(REGISTRY_PATH);
     const built = build(story, assets);
-    expect(built.init).toContain('let testYes = "test";');
+    expect(built.init).toContain('const testYes = "test";');
   });
 });
 
@@ -220,14 +220,14 @@ function ifCmdLocal(v: ReturnType<typeof variable<string>>) {
 }
 
 describe("variables / init generation", () => {
-  test("variable with initial emits canonical let line", () => {
+  test("variable with initial emits canonical const line", () => {
     const v = variable<string>("x", { initial: "hello" });
     const s = defineStory({
       variables: [v],
       pages: [page("start", [])],
     });
     const out = build(s, { galleries: {}, files: {} });
-    expect(out.init).toBe('let x = "hello";');
+    expect(out.init).toBe('const x = "hello";');
   });
 
   test("variable without initial does not appear in init", () => {
@@ -248,7 +248,7 @@ describe("variables / init generation", () => {
       pages: [page("start", [])],
     });
     const out = build(s, { galleries: {}, files: {} });
-    expect(out.init).toBe("let n = 42;\n// post-init");
+    expect(out.init).toBe("const n = 42;\n// post-init");
   });
 });
 

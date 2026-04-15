@@ -241,7 +241,7 @@ export function build(
   const initLines: string[] = [];
   for (const v of config.variables ?? []) {
     if (v.hasInitial) {
-      initLines.push(`let ${v.name} = ${JSON.stringify(v.initial)};`);
+      initLines.push(`const ${v.name} = ${JSON.stringify(v.initial)};`);
     }
   }
   let init: string | undefined;

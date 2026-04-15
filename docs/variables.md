@@ -36,8 +36,14 @@ but not present in this list throws a build error identifying the site.
 that have an `initial` value:
 
 ```js
-let greetings = 0;
+const greetings = 0;
 ```
+
+Declarations use `const` because the runtime only honors constants in the
+`init` block; `let` bindings don't propagate to the scope used by
+`if.condition`, `eval.script`, and friends. If you need a mutable counter
+or flag, declare it through `initExtra` instead (see below) and mutate it
+from an `evalCmd`.
 
 If you need more setup (setting up `teaseStorage` keys, bootstrapping
 derived state), append `initExtra`:

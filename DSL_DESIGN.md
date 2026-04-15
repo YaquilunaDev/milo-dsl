@@ -161,9 +161,12 @@ Spec said `loadAssets`; kept that name. Internally the parameter is called
 - **`editor.recentImages`**: always empty in output.
 - **`init` format**: the input's `init` may contain prelude comments and
   omit trailing semicolons (`// comment\nlet testYes = "test"`). The DSL
-  emits canonical `let testYes = "test";` lines, optionally followed by
-  `initExtra` source. The structural test compares variable-name → value
-  pairs, not raw text.
+  emits canonical `const testYes = "test";` lines, optionally followed by
+  `initExtra` source. `const` is deliberate: on the current runtime,
+  variables declared with `let` in `init` do not propagate to the scope
+  used by `if.condition` / `eval.script`, while `const` declarations do.
+  Use `initExtra` for mutable state. The structural test compares
+  variable-name → value pairs, not raw text.
 - **`gotoScript` flattening (scoped exception to "don't reformat JS")**:
   the server validates `goto.target`'s `$`-prefixed script form against
   `^\$.*$`, which in regex does not allow line terminators. Browser
