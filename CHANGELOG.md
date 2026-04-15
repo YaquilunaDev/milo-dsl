@@ -4,6 +4,23 @@ All notable changes to this project are documented in this file. The
 format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Added
+
+- `milo-dsl` CLI. Builds a story `.ts` (or a directory containing
+  `story.ts` / `index.ts`) to JSON without a hand-written build script.
+  Flags: `--registry`, `--out`, `--minify`, `--help`, `--version`.
+  Registers as the `bin` entrypoint so consumers can invoke it via
+  `bunx milo-dsl` or `node_modules/.bin/milo-dsl`.
+
+### Changed
+
+- `src/build.ts` auto-generated `init` declarations use `const` instead
+  of `let`. The runtime does not propagate `let` bindings from `init`
+  into `if.condition` / `eval.script` scopes. Mutable state should be
+  declared via `initExtra` with your own `let` or `var`.
+
 ## [0.1.0] - 2026-04-15
 
 Initial release. Graduates the DSL from proof of concept to a

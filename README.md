@@ -79,6 +79,26 @@ await Bun.write("./out.json", JSON.stringify(output, null, 2));
 
 Upload `out.json` through the platform editor.
 
+## CLI
+
+Installed alongside the library, the `milo-dsl` binary builds a story
+to JSON without a hand-written build script:
+
+```bash
+bunx milo-dsl ./story.ts \
+  --registry ./registry.json \
+  --out ./out.json
+```
+
+Pass a directory to pick up its `story.ts` automatically:
+
+```bash
+bunx milo-dsl ./my-story/
+```
+
+Add `--minify` for a compact upload-ready payload. See
+[docs/cli.md](./docs/cli.md) for all flags.
+
 ## How it works
 
 You author a story as a TypeScript module using typed builder functions.
@@ -121,6 +141,7 @@ https://github.com/YaquilunaDev/milo-dsl/issues.
 
 ## Documentation
 
+- [CLI reference](./docs/cli.md)
 - [Commands reference](./docs/commands.md)
 - [Variables and JS scope](./docs/variables.md)
 - [Embedded JS scope](./docs/js-scope.md)

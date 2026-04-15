@@ -12,6 +12,9 @@
       "import": "./dist/index.js"
     }
   },
+  "bin": {
+    "milo-dsl": "./dist/cli.js"
+  },
   "files": [
     "dist",
     "src",
