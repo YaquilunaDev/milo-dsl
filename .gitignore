@@ -1,1 +1,6 @@
 dls-tests-2026-04-15.json
+node_modules/
+out.json
+bun.lock
+bun.lockb
+.claude/
