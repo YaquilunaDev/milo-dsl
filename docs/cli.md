@@ -8,9 +8,17 @@ milo-dsl <input> [options]
 ```
 
 Requires Bun (the CLI uses Bun's native `.ts` import). After installing
-milo-dsl via `bun add`, trust the package so its `prepare` step runs
-(`bun pm trust milo-dsl`), then run the binary through `bunx` or via
-`node_modules/.bin/milo-dsl`.
+milo-dsl via `bun add github:YaquilunaDev/milo-dsl`, trust the package
+so its `prepare` step runs (`bun pm trust milo-dsl`). Then invoke the
+binary directly (`./node_modules/.bin/milo-dsl`) or through a
+`package.json` script (`bun run build`).
+
+Do not use `bunx milo-dsl` for GitHub-installed builds. Bun looks up
+the package on the public npm registry before using the local bin, and
+since `milo-dsl` isn't published there the lookup 404s:
+`error: GET https://registry.npmjs.org/milo-dsl - 404`. Running
+`./node_modules/.bin/milo-dsl` or `bun run <script>` avoids the
+registry call.
 
 ## Positional
 

@@ -82,18 +82,38 @@ Upload `out.json` through the platform editor.
 ## CLI
 
 Installed alongside the library, the `milo-dsl` binary builds a story
-to JSON without a hand-written build script:
+to JSON without a hand-written build script. Invoke it directly:
 
 ```bash
-bunx milo-dsl ./story.ts \
+./node_modules/.bin/milo-dsl ./story.ts \
   --registry ./registry.json \
   --out ./out.json
 ```
 
+Or wire it into `package.json`:
+
+```json
+{
+  "scripts": {
+    "build": "milo-dsl ./story.ts --out ./out.json"
+  }
+}
+```
+
+```bash
+bun run build
+```
+
+> **Don't use `bunx milo-dsl`.** For GitHub-installed packages Bun still
+> hits the public npm registry to resolve a version before falling back
+> to the local bin, and since `milo-dsl` isn't published there you'll see
+> `error: GET https://registry.npmjs.org/milo-dsl - 404`. Running the
+> binary directly or via `bun run` sidesteps the registry lookup.
+
 Pass a directory to pick up its `story.ts` automatically:
 
 ```bash
-bunx milo-dsl ./my-story/
+./node_modules/.bin/milo-dsl ./my-story/
 ```
 
 Add `--minify` for a compact upload-ready payload. See
