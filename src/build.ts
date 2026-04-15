@@ -1,5 +1,5 @@
-import { COMMAND_BRAND } from "./internal/brands";
-import { flattenGotoScript } from "./internal/flatten";
+import { COMMAND_BRAND } from "./internal/brands.js";
+import { flattenGotoScript } from "./internal/flatten.js";
 import type {
   AssetRegistry,
   Command,
@@ -8,7 +8,7 @@ import type {
   Locator,
   StoryConfig,
   VarRef,
-} from "./types";
+} from "./types.js";
 
 type Json =
   | string

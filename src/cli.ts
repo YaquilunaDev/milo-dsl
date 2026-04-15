@@ -1,17 +1,17 @@
-#!/usr/bin/env bun
+#!/usr/bin/env node
 import { parseArgs } from "node:util";
-import { dirname, resolve, isAbsolute } from "node:path";
-import { pathToFileURL } from "node:url";
-import { stat } from "node:fs/promises";
-import { loadAssets } from "./registry";
-import { build } from "./build";
-import type { AssetRegistry, StoryConfig } from "./types";
+import { dirname, resolve, isAbsolute, join, extname } from "node:path";
+import { pathToFileURL, fileURLToPath } from "node:url";
+import { stat, writeFile, readFile, unlink } from "node:fs/promises";
+import { loadAssets } from "./registry.js";
+import { build } from "./build.js";
+import type { AssetRegistry, StoryConfig } from "./types.js";
 
 const USAGE = `Usage: milo-dsl <input> [options]
 
 Positional:
-  <input>                 Path to a story .ts file, or a directory containing
-                          story.ts / story.js / index.ts / index.js.
+  <input>                 Path to a story .ts / .js / .mjs file, or a directory
+                          containing story.ts / story.js / index.ts / index.js.
 
 Options:
   -r, --registry <path>   Asset registry JSON. Default: <input-dir>/registry.json
@@ -23,6 +23,10 @@ Options:
   -h, --help              Show this help.
   -V, --version           Print the milo-dsl version.
 `;
+
+function isBun(): boolean {
+  return typeof (globalThis as any).Bun !== "undefined";
+}
 
 async function main(argv: string[]): Promise<number> {
   const parsed = parseArgs({
@@ -73,14 +77,13 @@ async function main(argv: string[]): Promise<number> {
       ? JSON.stringify(output)
       : JSON.stringify(output, null, 2)) + "\n";
 
-  await Bun.write(outPath, payload);
+  await writeFile(outPath, payload);
   process.stdout.write(`wrote ${outPath}\n`);
   return 0;
 }
 
 async function resolveStoryPath(p: string): Promise<string> {
-  const exists = await pathExists(p);
-  if (!exists) {
+  if (!(await pathExists(p))) {
     fail(`input path does not exist: ${p}`);
   }
   if (await isDirectory(p)) {
@@ -117,9 +120,18 @@ async function resolveRegistry(
 }
 
 async function loadStoryModule(path: string): Promise<StoryConfig> {
+  const ext = extname(path).toLowerCase();
+  // Bun imports every supported extension natively, and Node handles .js/.mjs
+  // without help. Only `.ts` / `.tsx` / `.cts` / `.mts` under Node need the
+  // esbuild transpile step.
+  const needsTranspile =
+    !isBun() && (ext === ".ts" || ext === ".tsx" || ext === ".cts" || ext === ".mts");
+
   let mod: any;
   try {
-    mod = await import(pathToFileURL(path).href);
+    mod = needsTranspile
+      ? await importViaEsbuild(path)
+      : await import(pathToFileURL(path).href);
   } catch (err) {
     const msg = err instanceof Error ? err.message : String(err);
     fail(`failed to import story ${path}: ${msg}`);
@@ -137,6 +149,51 @@ async function loadStoryModule(path: string): Promise<StoryConfig> {
     );
   }
   return config as StoryConfig;
+}
+
+async function importViaEsbuild(path: string): Promise<unknown> {
+  let esbuild: typeof import("esbuild");
+  try {
+    esbuild = await import("esbuild");
+  } catch {
+    fail(
+      "esbuild is required to import .ts files under Node. It should have " +
+        "been installed with milo-dsl; try reinstalling the package."
+    );
+  }
+  const result = await esbuild.build({
+    entryPoints: [path],
+    bundle: true,
+    format: "esm",
+    platform: "node",
+    target: `node${process.versions.node.split(".")[0]}`,
+    write: false,
+    sourcemap: "inline",
+    logLevel: "silent",
+    // Keep milo-dsl external so the bundled story uses the same installed
+    // instance as the CLI; brand-symbol identity must hold across the module
+    // boundary or the Command discriminator breaks.
+    external: ["milo-dsl"],
+  });
+  if (result.outputFiles.length === 0) {
+    fail(`esbuild produced no output for ${path}`);
+  }
+  const code = result.outputFiles[0]!.text;
+  // Write the bundled module next to the user's story file so Node's module
+  // resolution can walk up to find the installed `milo-dsl` package in their
+  // node_modules. Writing to os.tmpdir() would move us out of that tree and
+  // break the `import "milo-dsl"` call in the bundle.
+  const storyDir = dirname(path);
+  const tmpFile = join(
+    storyDir,
+    `.milo-dsl-${Date.now()}-${Math.random().toString(36).slice(2, 8)}.mjs`
+  );
+  await writeFile(tmpFile, code);
+  try {
+    return await import(pathToFileURL(tmpFile).href);
+  } finally {
+    await unlink(tmpFile).catch(() => {});
+  }
 }
 
 async function pathExists(p: string): Promise<boolean> {
@@ -158,16 +215,19 @@ async function isDirectory(p: string): Promise<boolean> {
 }
 
 async function readPackageVersion(): Promise<string> {
-  // dist/cli.js -> dist/ -> package root
-  const here = import.meta.dir ?? dirname(new URL(import.meta.url).pathname);
+  const here = fileURLToPath(new URL(".", import.meta.url));
   const candidates = [
     resolve(here, "..", "package.json"),
     resolve(here, "..", "..", "package.json"),
   ];
   for (const p of candidates) {
     if (await pathExists(p)) {
-      const json = await Bun.file(p).json();
-      if (json.version) return String(json.version);
+      try {
+        const json = JSON.parse(await readFile(p, "utf8"));
+        if (json.version) return String(json.version);
+      } catch {
+        // keep looking
+      }
     }
   }
   return "unknown";

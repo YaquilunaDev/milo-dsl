@@ -1,15 +1,15 @@
 // Entry & build pipeline.
-export { defineStory } from "./story";
-export { build } from "./build";
-export { loadAssets } from "./registry";
+export { defineStory } from "./story.js";
+export { build } from "./build.js";
+export { loadAssets } from "./registry.js";
 
 // Authoring primitives.
-export { page } from "./page";
-export { variable } from "./variables";
-export { gallery, file } from "./locator";
-export { duration, seconds, minutes } from "./duration";
-export { js } from "./js";
-export { html } from "./html";
+export { page } from "./page.js";
+export { variable } from "./variables.js";
+export { gallery, file } from "./locator.js";
+export { duration, seconds, minutes } from "./duration.js";
+export { js } from "./js.js";
+export { html } from "./html.js";
 
 // Command builders.
 export {
@@ -29,7 +29,7 @@ export {
   audioPlay,
   notificationCreate,
   notificationRemove,
-} from "./commands";
+} from "./commands.js";
 
 // Public types.
 export type {
@@ -73,7 +73,7 @@ export type {
   TimerCommand,
   TimerStyle,
   VarRef,
-} from "./types";
+} from "./types.js";
 
 export type {
   AudioPlayOpts,
@@ -83,10 +83,10 @@ export type {
   NotificationCreateOptsWithId,
   NotificationCreateResult,
   SayOpts,
-} from "./commands";
+} from "./commands.js";
 
-export type { SayLabel, HtmlChild } from "./html";
-export type { VariableOptions } from "./variables";
-export type { GalleryHandle, GalleryOptions } from "./locator";
-export type { PageCommands } from "./page";
-export type { BuildOutput } from "./build";
+export type { SayLabel, HtmlChild } from "./html.js";
+export type { VariableOptions } from "./variables.js";
+export type { GalleryHandle, GalleryOptions } from "./locator.js";
+export type { PageCommands } from "./page.js";
+export type { BuildOutput } from "./build.js";

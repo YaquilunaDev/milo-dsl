@@ -2,7 +2,7 @@ import {
   COMMAND_BRAND,
   NOTIFICATION_REF_BRAND,
   SOUND_REF_BRAND,
-} from "./internal/brands";
+} from "./internal/brands.js";
 import {
   isJs,
   isLocator,
@@ -10,7 +10,7 @@ import {
   isPageRef,
   isVarRef,
   isNotificationRef,
-} from "./internal/guards";
+} from "./internal/guards.js";
 import type {
   AudioPlayCommand,
   ChoiceCommand,
@@ -38,8 +38,8 @@ import type {
   TimerCommand,
   TimerStyle,
   VarRef,
-} from "./types";
-import { normalizeLabel, type SayLabel } from "./html";
+} from "./types.js";
+import { normalizeLabel, type SayLabel } from "./html.js";
 
 export type SayOpts =
   | { align?: "left" | "right" }

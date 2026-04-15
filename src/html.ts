@@ -1,6 +1,6 @@
-import { HTML_BRAND } from "./internal/brands";
-import { isHtml, isJs, isVarRef } from "./internal/guards";
-import type { Html, Js, VarRef } from "./types";
+import { HTML_BRAND } from "./internal/brands.js";
+import { isHtml, isJs, isVarRef } from "./internal/guards.js";
+import type { Html, Js, VarRef } from "./types.js";
 
 export type HtmlChild = string | Html;
 

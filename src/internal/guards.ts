@@ -7,7 +7,7 @@ import {
   SOUND_REF_BRAND,
   NOTIFICATION_REF_BRAND,
   HTML_BRAND,
-} from "./brands";
+} from "./brands.js";
 import type {
   Js,
   Duration,
@@ -17,7 +17,7 @@ import type {
   SoundRef,
   NotificationRef,
   Html,
-} from "../types";
+} from "../types.js";
 
 export function isJs(v: unknown): v is Js {
   return typeof v === "object" && v !== null && (v as any)[JS_BRAND] === true;

@@ -1,5 +1,5 @@
-import { PAGE_REF_BRAND } from "./internal/brands";
-import type { Command, PageRef, PageRegistration } from "./types";
+import { PAGE_REF_BRAND } from "./internal/brands.js";
+import type { Command, PageRef, PageRegistration } from "./types.js";
 
 export type PageCommands =
   | readonly Command[]

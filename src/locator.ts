@@ -1,10 +1,10 @@
-import { LOCATOR_BRAND } from "./internal/brands";
+import { LOCATOR_BRAND } from "./internal/brands.js";
 import type {
   GalleryImageLocator,
   GalleryRandomLocator,
   FileLocator,
   FilePatternLocator,
-} from "./types";
+} from "./types.js";
 
 export interface GalleryOptions {
   id: string;

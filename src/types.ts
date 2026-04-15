@@ -8,7 +8,7 @@ import {
   NOTIFICATION_REF_BRAND,
   HTML_BRAND,
   COMMAND_BRAND,
-} from "./internal/brands";
+} from "./internal/brands.js";
 
 export interface Js {
   readonly [JS_BRAND]: true;
