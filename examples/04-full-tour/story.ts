@@ -23,7 +23,7 @@ import {
   say,
   timer,
   variable,
-} from "../src";
+} from "../../src";
 
 const userInputVar = variable<string>("userInputVar");
 const testYes = variable<string>("testYes", { initial: "test" });
