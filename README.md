@@ -38,6 +38,28 @@ npm install github:YaquilunaDev/milo-dsl#v0.1.0
 The install runs a `prepare` step that builds `dist/` via `tsc`. No
 runtime dependencies beyond TypeScript itself.
 
+### Bun users: trust the prepare script
+
+Bun blocks lifecycle scripts by default, so the `prepare` build does not
+run and `dist/` stays empty until you trust the package:
+
+```bash
+bun pm trust milo-dsl
+```
+
+Or, in your consumer `package.json`:
+
+```json
+{
+  "trustedDependencies": ["milo-dsl"]
+}
+```
+
+npm and pnpm run `prepare` automatically, so this step is only needed
+for Bun. See [Bun's trusted dependencies
+docs](https://bun.com/docs/cli/install#trusted-dependencies) for
+background.
+
 ## Quickstart
 
 ```ts
