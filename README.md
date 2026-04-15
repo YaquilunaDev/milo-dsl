@@ -1,4 +1,17 @@
+<div align="center">
+
+<img src="./logo.png" alt="milo-dsl logo" width="180" />
+
 # milo-dsl
+
+[![CI](https://github.com/YaquilunaDev/milo-dsl/actions/workflows/ci.yml/badge.svg)](https://github.com/YaquilunaDev/milo-dsl/actions/workflows/ci.yml)
+[![License: GPL-3.0](https://img.shields.io/badge/license-GPL--3.0-blue.svg)](./LICENSE)
+[![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Bun](https://img.shields.io/badge/Bun-%E2%89%A51.1-000000?logo=bun&logoColor=white)](https://bun.sh)
+[![Node](https://img.shields.io/badge/Node-%E2%89%A518-339933?logo=node.js&logoColor=white)](https://nodejs.org)
+[![Built with Claude](https://img.shields.io/badge/Built%20with-Claude-D97757?logo=anthropic&logoColor=white)](https://claude.com/claude-code)
+
+</div>
 
 TypeScript DSL for authoring interactive narrative JSON. Write stories in
 typed TS modules, build to the runtime's JSON export format.
