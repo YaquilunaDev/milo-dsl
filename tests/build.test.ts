@@ -17,10 +17,10 @@ import {
   variable,
 } from "../src";
 import type { AssetRegistry } from "../src/types";
-import { flattenGotoScript } from "../src/build";
-import story from "../examples/demo.story";
+import { flattenGotoScript } from "../src/internal/flatten";
+import story from "../examples/04-full-tour/story";
 
-const REGISTRY_PATH = "./examples/registry.json";
+const REGISTRY_PATH = "./examples/04-full-tour/registry.json";
 const INPUT_JSON_PATH = "./dls-tests-2026-04-15.json";
 
 async function loadInput(): Promise<any> {

@@ -1,4 +1,5 @@
-import { DURATION_BRAND, type Duration } from "./types";
+import { DURATION_BRAND } from "./internal/brands";
+import type { Duration } from "./types";
 
 const UNIT_RE = /^(\d+(?:\.\d+)?)(ms|s|m|h)$/;
 const COMPOSITE_RE =

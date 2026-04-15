@@ -1,12 +1,13 @@
-import {
-  COMMAND_BRAND,
-  type AssetRegistry,
-  type Command,
-  type GalleryEntry,
-  type FileEntry,
-  type Locator,
-  type StoryConfig,
-  type VarRef,
+import { COMMAND_BRAND } from "./internal/brands";
+import { flattenGotoScript } from "./internal/flatten";
+import type {
+  AssetRegistry,
+  Command,
+  GalleryEntry,
+  FileEntry,
+  Locator,
+  StoryConfig,
+  VarRef,
 } from "./types";
 
 type Json =
@@ -24,19 +25,6 @@ export interface BuildOutput {
   galleries: Record<string, GalleryEntry>;
   editor: { recentImages: [] };
   files: Record<string, FileEntry>;
-}
-
-// Server constraint: `goto.target`'s `$`-prefixed script form is validated
-// against `^\$.*$`, which forbids line terminators. The runtime does not
-// expose `eval`/`atob`/`Function` in a way that lets us tunnel multiline
-// code, so we flatten in this field only. Author content in `if.condition`,
-// `eval.script`, `init`, and `initExtra` is untouched.
-export function flattenGotoScript(src: string): string {
-  let s = src.replace(/\/\/([^\n]*)\n/g, "/*$1*/;");
-  s = s.replace(/\r?\n/g, ";");
-  s = s.replace(/;{2,}/g, ";");
-  s = s.replace(/^;+|;+$/g, "");
-  return s;
 }
 
 export function build(

@@ -1,0 +1,9 @@
+export const JS_BRAND = Symbol("Js");
+export const DURATION_BRAND = Symbol("Duration");
+export const LOCATOR_BRAND = Symbol("Locator");
+export const PAGE_REF_BRAND = Symbol("PageRef");
+export const VAR_REF_BRAND = Symbol("VarRef");
+export const SOUND_REF_BRAND = Symbol("SoundRef");
+export const NOTIFICATION_REF_BRAND = Symbol("NotificationRef");
+export const HTML_BRAND = Symbol("Html");
+export const COMMAND_BRAND = Symbol("Command");

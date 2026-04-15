@@ -1,13 +1,12 @@
+import { JS_BRAND } from "./internal/brands";
 import {
-  JS_BRAND,
-  type Js,
-  type VarRef,
   isVarRef,
   isSoundRef,
   isNotificationRef,
   isPageRef,
   isJs,
-} from "./types";
+} from "./internal/guards";
+import type { Js, VarRef } from "./types";
 
 function renderValue(v: unknown, refs: VarRef<unknown>[]): string {
   if (isVarRef(v)) {

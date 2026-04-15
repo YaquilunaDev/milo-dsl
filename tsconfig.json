@@ -19,5 +19,5 @@
     "lib": ["ESNext"],
     "noEmit": true
   },
-  "include": ["src/**/*.ts", "examples/**/*.ts", "tests/**/*.ts", "build.ts"]
+  "include": ["src/**/*.ts", "examples/**/*.ts", "tests/**/*.ts"]
 }

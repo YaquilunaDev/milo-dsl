@@ -1,9 +1,9 @@
-import {
-  LOCATOR_BRAND,
-  type GalleryImageLocator,
-  type GalleryRandomLocator,
-  type FileLocator,
-  type FilePatternLocator,
+import { LOCATOR_BRAND } from "./internal/brands";
+import type {
+  GalleryImageLocator,
+  GalleryRandomLocator,
+  FileLocator,
+  FilePatternLocator,
 } from "./types";
 
 export interface GalleryOptions {

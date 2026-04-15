@@ -1,4 +1,5 @@
-import { VAR_REF_BRAND, type VarRef } from "./types";
+import { VAR_REF_BRAND } from "./internal/brands";
+import type { VarRef } from "./types";
 
 export interface VariableOptions<T> {
   initial?: T;

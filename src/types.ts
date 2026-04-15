@@ -1,12 +1,14 @@
-export const JS_BRAND = Symbol("Js");
-export const DURATION_BRAND = Symbol("Duration");
-export const LOCATOR_BRAND = Symbol("Locator");
-export const PAGE_REF_BRAND = Symbol("PageRef");
-export const VAR_REF_BRAND = Symbol("VarRef");
-export const SOUND_REF_BRAND = Symbol("SoundRef");
-export const NOTIFICATION_REF_BRAND = Symbol("NotificationRef");
-export const HTML_BRAND = Symbol("Html");
-export const COMMAND_BRAND = Symbol("Command");
+import {
+  JS_BRAND,
+  DURATION_BRAND,
+  LOCATOR_BRAND,
+  PAGE_REF_BRAND,
+  VAR_REF_BRAND,
+  SOUND_REF_BRAND,
+  NOTIFICATION_REF_BRAND,
+  HTML_BRAND,
+  COMMAND_BRAND,
+} from "./internal/brands";
 
 export interface Js {
   readonly [JS_BRAND]: true;
@@ -235,43 +237,4 @@ export interface FileEntry {
 export interface AssetRegistry {
   galleries: Record<string, GalleryEntry>;
   files: Record<string, FileEntry>;
-}
-
-export function isJs(v: unknown): v is Js {
-  return typeof v === "object" && v !== null && (v as any)[JS_BRAND] === true;
-}
-export function isVarRef(v: unknown): v is VarRef<unknown> {
-  return (
-    typeof v === "object" && v !== null && (v as any)[VAR_REF_BRAND] === true
-  );
-}
-export function isSoundRef(v: unknown): v is SoundRef {
-  return (
-    typeof v === "object" && v !== null && (v as any)[SOUND_REF_BRAND] === true
-  );
-}
-export function isNotificationRef(v: unknown): v is NotificationRef {
-  return (
-    typeof v === "object" &&
-    v !== null &&
-    (v as any)[NOTIFICATION_REF_BRAND] === true
-  );
-}
-export function isPageRef(v: unknown): v is PageRef {
-  return (
-    typeof v === "object" && v !== null && (v as any)[PAGE_REF_BRAND] === true
-  );
-}
-export function isHtml(v: unknown): v is Html {
-  return typeof v === "object" && v !== null && (v as any)[HTML_BRAND] === true;
-}
-export function isLocator(v: unknown): v is Locator {
-  return (
-    typeof v === "object" && v !== null && (v as any)[LOCATOR_BRAND] === true
-  );
-}
-export function isDuration(v: unknown): v is Duration {
-  return (
-    typeof v === "object" && v !== null && (v as any)[DURATION_BRAND] === true
-  );
 }
