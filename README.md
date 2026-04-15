@@ -112,8 +112,14 @@ registry is the exported JSON's `galleries` and `files` sections.
 
 Bun blocks lifecycle scripts by default, so after
 `bun add github:YaquilunaDev/milo-dsl` the `prepare` build doesn't run
-and `dist/` stays empty. Imports will fail with
-`Cannot find package 'milo-dsl'`. Trust the package once:
+and `dist/` stays empty. That breaks two things at once:
+
+- `import ... from "milo-dsl"` fails with `Cannot find package 'milo-dsl'`.
+- The `milo-dsl` CLI bin isn't linked, so `bunx milo-dsl` falls through
+  to the public npm registry and prints
+  `error: GET https://registry.npmjs.org/milo-dsl`.
+
+Trust the package once to run `prepare` and link the bin:
 
 ```bash
 bun pm trust milo-dsl
