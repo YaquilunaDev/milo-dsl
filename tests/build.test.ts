@@ -89,13 +89,18 @@ function extractLetAssignments(src: string): Record<string, unknown> {
   return out;
 }
 
+const hasInputJson = await Bun.file(INPUT_JSON_PATH).exists();
+
 describe("build: demo reproduction", () => {
-  test("demo builds and structurally matches input JSON", async () => {
-    const assets = await loadAssets(REGISTRY_PATH);
-    const built = build(story, assets);
-    const expected = await loadInput();
-    expect(normalize(built)).toEqual(normalize(expected));
-  });
+  test.skipIf(!hasInputJson)(
+    "demo builds and structurally matches input JSON",
+    async () => {
+      const assets = await loadAssets(REGISTRY_PATH);
+      const built = build(story, assets);
+      const expected = await loadInput();
+      expect(normalize(built)).toEqual(normalize(expected));
+    }
+  );
 
   test("output has editor: { recentImages: [] } regardless of input", async () => {
     const assets = await loadAssets(REGISTRY_PATH);

@@ -3,7 +3,6 @@ node_modules/
 out.json
 out/
 dist/
-bun.lock
 bun.lockb
 .claude/
 *.log
