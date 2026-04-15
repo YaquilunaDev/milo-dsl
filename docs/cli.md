@@ -7,18 +7,37 @@ a build script.
 milo-dsl <input> [options]
 ```
 
-Requires Bun (the CLI uses Bun's native `.ts` import). After installing
-milo-dsl via `bun add github:YaquilunaDev/milo-dsl`, trust the package
-so its `prepare` step runs (`bun pm trust milo-dsl`). Then invoke the
-binary directly (`./node_modules/.bin/milo-dsl`) or through a
-`package.json` script (`bun run build`).
+Runs under Node (>= 18) and Bun. Under Node, `.ts` stories are
+transpiled on the fly via `esbuild`, which is a runtime dependency of
+milo-dsl and installed automatically. Under Bun, the native `.ts`
+loader is used; `esbuild` is never invoked.
 
-Do not use `bunx milo-dsl` for GitHub-installed builds. Bun looks up
-the package on the public npm registry before using the local bin, and
-since `milo-dsl` isn't published there the lookup 404s:
-`error: GET https://registry.npmjs.org/milo-dsl - 404`. Running
-`./node_modules/.bin/milo-dsl` or `bun run <script>` avoids the
-registry call.
+Installation:
+
+```bash
+npm install github:YaquilunaDev/milo-dsl
+# or
+bun add github:YaquilunaDev/milo-dsl
+```
+
+For Bun installs, trust the package so the `prepare` step can build
+`dist/`:
+
+```bash
+bun pm trust milo-dsl
+```
+
+Invoke the binary via any of:
+
+- `npx milo-dsl ...`
+- `./node_modules/.bin/milo-dsl ...`
+- a `package.json` script: `"build": "milo-dsl ..."`, then
+  `npm run build` or `bun run build`.
+
+Avoid `bunx milo-dsl` for GitHub-installed builds. Bun consults the
+public npm registry before falling back to the local bin, and since
+`milo-dsl` is not published there the request 404s:
+`error: GET https://registry.npmjs.org/milo-dsl - 404`.
 
 ## Positional
 

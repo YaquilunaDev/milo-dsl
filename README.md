@@ -82,10 +82,12 @@ Upload `out.json` through the platform editor.
 ## CLI
 
 Installed alongside the library, the `milo-dsl` binary builds a story
-to JSON without a hand-written build script. Invoke it directly:
+to JSON without a hand-written build script. It runs under both Node
+and Bun. The easiest invocation is via `npx` (or `node_modules/.bin`
+directly):
 
 ```bash
-./node_modules/.bin/milo-dsl ./story.ts \
+npx milo-dsl ./story.ts \
   --registry ./registry.json \
   --out ./out.json
 ```
@@ -101,20 +103,25 @@ Or wire it into `package.json`:
 ```
 
 ```bash
-bun run build
+npm run build     # or: bun run build
 ```
 
-> **Don't use `bunx milo-dsl`.** For GitHub-installed packages Bun still
-> hits the public npm registry to resolve a version before falling back
-> to the local bin, and since `milo-dsl` isn't published there you'll see
-> `error: GET https://registry.npmjs.org/milo-dsl - 404`. Running the
-> binary directly or via `bun run` sidesteps the registry lookup.
+> **Avoid `bunx milo-dsl` for GitHub installs.** Bun checks the public
+> npm registry to resolve a version before using the local bin, so you
+> get `error: GET https://registry.npmjs.org/milo-dsl - 404` even when
+> the local install is fine. Use `npx milo-dsl` or
+> `./node_modules/.bin/milo-dsl` instead. `npm run <script>` and
+> `bun run <script>` both work.
 
 Pass a directory to pick up its `story.ts` automatically:
 
 ```bash
-./node_modules/.bin/milo-dsl ./my-story/
+npx milo-dsl ./my-story/
 ```
+
+Under Node, `.ts` stories are transpiled on the fly via `esbuild` (a
+runtime dependency). Under Bun, the native TS loader is used. Either
+way the DSL's runtime behavior is identical.
 
 Add `--minify` for a compact upload-ready payload. See
 [docs/cli.md](./docs/cli.md) for all flags.

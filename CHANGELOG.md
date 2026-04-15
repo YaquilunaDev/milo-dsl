@@ -12,7 +12,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
   `story.ts` / `index.ts`) to JSON without a hand-written build script.
   Flags: `--registry`, `--out`, `--minify`, `--help`, `--version`.
   Registers as the `bin` entrypoint so consumers can invoke it via
-  `bunx milo-dsl` or `node_modules/.bin/milo-dsl`.
+  `npx milo-dsl`, `./node_modules/.bin/milo-dsl`, or a `package.json`
+  script.
+- npm / Node compatibility for the CLI. Shebang is now
+  `#!/usr/bin/env node`; under Node, `.ts` stories are transpiled on
+  the fly via `esbuild` (new runtime dependency). Under Bun the native
+  loader is still used and `esbuild` stays idle.
+- `esbuild` as a runtime dependency. The library itself remains
+  dependency-free; only the CLI's Node path pulls it in.
+
+### Changed
+
+- All relative imports inside `src/` now include explicit `.js`
+  extensions so the compiled ESM output in `dist/` resolves under Node
+  without a bundler.
+- `src/registry.ts` and `src/cli.ts` no longer call `Bun.file` /
+  `Bun.write`; they use `node:fs/promises` instead, which works on both
+  runtimes.
 
 ### Changed
 
