@@ -16,6 +16,16 @@
 TypeScript DSL for authoring interactive narrative JSON. Write stories in
 typed TS modules, build to the runtime's JSON export format.
 
+## Documentation
+
+- [CLI reference](./docs/cli.md)
+- [Commands reference](./docs/commands.md)
+- [Variables and JS scope](./docs/variables.md)
+- [Embedded JS scope](./docs/js-scope.md)
+- [Asset workflow](./docs/assets.md)
+- [Migrating from raw JSON](./docs/migration.md)
+- [Examples](./examples/)
+
 ## Install
 
 ```bash
@@ -171,16 +181,6 @@ Early-stage. The DSL reproduces the reference export faithfully and has
 32 passing tests covering the build path, but the API may still change
 before 1.0. File issues for bugs or feature requests at
 https://github.com/YaquilunaDev/milo-dsl/issues.
-
-## Documentation
-
-- [CLI reference](./docs/cli.md)
-- [Commands reference](./docs/commands.md)
-- [Variables and JS scope](./docs/variables.md)
-- [Embedded JS scope](./docs/js-scope.md)
-- [Asset workflow](./docs/assets.md)
-- [Migrating from raw JSON](./docs/migration.md)
-- [Examples](./examples/)
 
 ## License
 
